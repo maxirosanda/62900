@@ -1,7 +1,10 @@
 import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
-import {Pressable, TextInput, View, Text, StyleSheet, FlatList, Modal} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 import uuid from 'react-native-uuid'
+import ModalDelete from './src/components/ModalDelete'
+import ContainerAddItem from './src/components/ContainerAddItem'
+import ListItems from './src/components/ListItems'
 
 const App = () => {
 
@@ -10,6 +13,7 @@ const App = () => {
   const [items,setItems] = useState([])
   const [itemSelected,setItemselected] = useState({})
   const [modalVisible,setModalVisible]= useState(false)
+
 
   const addItem = () => {
     if(newValueItem == ""){
@@ -43,54 +47,22 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerAdd}>
-        <View style={styles.containerInput}>
-          <TextInput 
-            placeholderTextColor="white"
-            value={newValueItem}
-            onChangeText={handlerOnChangeItem} 
-            style={styles.input} 
-            placeholder='Ingrese item'
-          />
-          {<Text style={styles.error}>{errorInput ? errorInput : ""}</Text>}
-        </View>
-        <Pressable onPress={addItem} style={styles.button}>
-          <Text style={styles.textButton}>+</Text>
-        </Pressable>
-      </View>
-      <FlatList
-        data={items}
-        keyExtractor={item => item.id}
-        renderItem={({item})=>{
-          return (
-            <View style={styles.card} key={item.id}>
-              <Text style={styles.textCard}>{item.value}</Text>
-              <Pressable onPress={()=> onHandlerModal(item)} style={styles.button}>
-                <Text style={styles.textButton}>-</Text>
-              </Pressable>
-            </View>
-          )
-        }}
+      <ContainerAddItem
+        addItem={addItem}
+        errorInput={errorInput}
+        newValueItem={newValueItem}
+        handlerOnChangeItem={handlerOnChangeItem}
       />
-    <Modal 
-      animationType='fade' 
-      visible={modalVisible}
-      transparent = {true}
-      >
-        <View style={styles.containerModal}>
-          <View style={styles.contanierSign}>
-            <Text style={styles.modalText}>Esta seguro que quiere eliminar el item: {itemSelected.value }?</Text>
-            <View style={styles.containerButtons}>
-              <Pressable style={styles.modalButton} onPress={onHandlerDelete}>
-                <Text style={styles.modalButtonText}>Si</Text>
-              </Pressable>
-              <Pressable style={styles.modalButton} onPress={() => onHandlerModal({})}>
-                <Text style={styles.modalButtonText}>NO</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-    </Modal>
+    <ListItems
+      items={items}
+      onHandlerModal={onHandlerModal}
+    />
+    <ModalDelete 
+      onHandlerModal={onHandlerModal}
+      onHandlerDelete={onHandlerDelete} 
+      modalVisible={modalVisible}
+      itemSelected={itemSelected}
+    />
     </View>
   )
 }
@@ -101,86 +73,5 @@ const styles = StyleSheet.create({
   container:{
     marginTop:24,
     flex:1
-  },
-  containerAdd:{
-    backgroundColor:"#F4012D",
-    margin:10,
-    padding: 10,
-    borderRadius:8,
-    flexDirection:"row",
-    alignItems:"center"
-  },
-  containerInput:{
-    flex:1
-  },
-  input:{
-    borderBottomColor:"white",
-    borderBottomWidth:2,
-    margin:10,
-    color:"white"
-  },
-  button:{
-    backgroundColor:"white",
-    width:40,
-    height:40,
-    padding:10,
-    margin:5,
-    borderRadius:3,
-    alignItems:"center"
-  },
-  textButton:{
-    color:"red",
-    fontWeight:"bold"
-  },
-  card:{
-    width:"80%",
-    backgroundColor:"#F4012D",
-    marginHorizontal:"10%",
-    marginVertical:20,
-    padding:15,
-    borderRadius:6,
-    alignItems:"center",
-    flexDirection:"row"
-  },
-  textCard:{
-    color:"white",
-    flex:1,
-    textAlign:"center"
-  },
-  error:{
-    color:"white"
-  },
-  containerModal:{
-    backgroundColor:"rgba(0,0,0,0.8)",
-    flex:1,
-    justifyContent:"center"
-  },
-  contanierSign:{
-    width:"80%",
-    marginHorizontal:"10%",
-    backgroundColor:"white",
-    padding:30,
-    borderRadius:8,
-    gap:10
-  },
-  modalText:{
-    fontSize:18,
-    textAlign:"center"
-  },
-  containerButtons:{
-    flexDirection:"row"
-  },
-  modalButton:{
-    backgroundColor:"red",
-    padding:20,
-    borderRadius:3,
-    margin:10,
-    flex:1,
-    alignItems:"center"
-  },
-  modalButtonText:{
-    color:"white",
-    fontWeight:"bold"
   }
-  
 })
