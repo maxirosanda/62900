@@ -4,9 +4,20 @@ import Home from './src/screens/Home'
 import ProductsByCategory from './src/screens/ProductsByCategory'
 import ProductDetail from './src/screens/ProductDetail'
 import { colors } from './src/globals/colors'
+import { useFonts } from 'expo-font'
 
 export default function App() {
 
+
+  const [fontsLoaded] = useFonts({
+    josefin:require("./assets/fonts/JosefinSans-Bold.ttf"),
+    lobster:require("./assets/fonts/Lobster-Regular.ttf")
+  })
+
+  if(!fontsLoaded){
+    return null
+  }
+  
   const product = {
     id: 0,
     title: "Crystal chandelier maria theresa for 12 light",
@@ -28,7 +39,7 @@ export default function App() {
 
   return (
     <>
-      <Home/>
+      <ProductsByCategory category="lighting"/>
       <StatusBar style="light" backgroundColor={colors.primary}/>
     </>
   )

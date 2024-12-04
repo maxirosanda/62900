@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     },
     title:{
         color:colors.lightGray,
-        fontSize:20
+        fontSize:20,
+        fontFamily:"josefin"
     }
 })
