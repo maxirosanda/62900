@@ -32,19 +32,19 @@ const Search = ({onChangeKeyword}) => {
     <View style={styles.container}>
       <View style={styles.containerInput}>
         <TextInput 
-            style={styles.input}
-            value={textInput}
-            onChangeText={(text)=>setTextInput(text)}
-            placeholderTextColor={colors.lightGray}
-            placeholder='Buscar'/>
-            <Text style={styles.error}>{error ? error : ""}</Text>
+          style={styles.input}
+          value={textInput}
+          onChangeText={(text)=>setTextInput(text)}
+          placeholderTextColor={colors.lightGray}
+          placeholder='Buscar'/>
+        <Pressable style={styles.button} onPress={search}>
+          <FontAwesome name="search" size={30} color="black" />
+        </Pressable>
+        <Pressable style={styles.button} onPress={removeSearch}>
+          <MaterialIcons name="cancel" size={30} color="black" />
+        </Pressable>
       </View>
-      <Pressable style={styles.button} onPress={search}>
-        <FontAwesome name="search" size={30} color="black" />
-      </Pressable>
-      <Pressable style={styles.button} onPress={removeSearch}>
-        <MaterialIcons name="cancel" size={30} color="black" />
-      </Pressable>
+      <Text style={styles.error}>{error ? error : ""}</Text>
     </View>
   )
 }
@@ -53,19 +53,21 @@ export default Search
 
 const styles = StyleSheet.create({
     container:{
-        flexDirection:"row",
-        padding:10,
-        alignItems:"center",
-        justifyContent:"center"
+      paddingHorizontal:10,
+      paddingTop:15
     },
     containerInput:{
-        flex:1,
+      flexDirection:"row",
+      alignItems:"center",
+      justifyContent:"center"
     },
     input:{
         backgroundColor:colors.accent,
+        padding:5,
         paddingLeft:10,
         borderRadius:4,
-        color:colors.lightGray
+        color:colors.lightGray,
+        flex:1
     },
     button:{
         margin:5

@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {StyleSheet} from 'react-native'
 import ShadowCard from './wrappers/ShadowCard'
 import { colors } from '../globals/colors'
 import TextPrimary from './TextPrimary'
@@ -8,7 +7,7 @@ const CardItemCategory = ({item}) => {
 
   return (
     <ShadowCard style={styles.container}>
-      <TextPrimary style={styles.text}>{item}</TextPrimary>
+        <TextPrimary style={styles.text}>{item}</TextPrimary>
     </ShadowCard>
   )
 }

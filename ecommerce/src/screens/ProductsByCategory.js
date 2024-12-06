@@ -1,4 +1,4 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Pressable, StyleSheet, Text, View ,useWindowDimensions} from 'react-native'
 import products from '../data/products.json'
 import { useEffect, useState } from 'react'
 import Header from '../components/Header'
@@ -10,14 +10,22 @@ const ProductsByCategory = ({category}) => {
 
   const [productsFiltered,setProductsFiltered] = useState([])
   const [keyword,setKeyword] = useState("")
+  const [portrait,setPortrait] = useState(false)
+  const {width,height} = useWindowDimensions()
 
   useEffect(()=>{
-    setProductsFiltered(products.filter(product => product.category === category))
-  },[])
+    if(width > height){
+      setPortrait(false)
+    } else{
+      setPortrait(true)
+    }
+  },[width,height])
 
   useEffect(()=>{
     if(keyword){
-      return setProductsFiltered(productsFiltered.filter(product => product.title.includes(keyword)))
+      return setProductsFiltered(products.filter(
+        product => product.category === category 
+        && product.title.includes(keyword)))
     }
     setProductsFiltered(products.filter(product => product.category === category))
   },[keyword])
@@ -39,4 +47,6 @@ const ProductsByCategory = ({category}) => {
 
 export default ProductsByCategory
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+})
