@@ -1,14 +1,16 @@
 import { Image, Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import React from 'react'
 import { colors } from '../globals/colors'
+import { useNavigation } from '@react-navigation/native'
 
 const CardProduct = ({product}) => {
 
     const {title,price,stock,thumbnail} = product
     const {width, height} = useWindowDimensions()
+    const navigation = useNavigation()
 
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={()=> navigation.navigate("ProductDetail",{product})}>
       <Image style={styles.image} source={{uri:thumbnail}} resizeMode='cover'/>
       <View>
         <Text style={styles.title}>{title}</Text>

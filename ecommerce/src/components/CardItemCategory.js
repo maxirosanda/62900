@@ -1,14 +1,19 @@
-import {StyleSheet} from 'react-native'
+import {StyleSheet,Pressable} from 'react-native'
 import ShadowCard from './wrappers/ShadowCard'
 import { colors } from '../globals/colors'
 import TextPrimary from './TextPrimary'
+import { useNavigation } from '@react-navigation/native'
 
-const CardItemCategory = ({item}) => {
+const CardItemCategory = ({item:category}) => {
+
+  const navigation = useNavigation()
 
   return (
-    <ShadowCard style={styles.container}>
-        <TextPrimary style={styles.text}>{item}</TextPrimary>
-    </ShadowCard>
+    <Pressable onPress={()=> navigation.navigate("ProductsByCategory",{category})}>
+      <ShadowCard style={styles.container} >
+          <TextPrimary style={styles.text}>{category}</TextPrimary>
+      </ShadowCard>
+    </Pressable>
   )
 }
 

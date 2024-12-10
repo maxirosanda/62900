@@ -2,10 +2,13 @@ import { StyleSheet, Text, View,Image, Pressable } from 'react-native'
 import Header from '../components/Header'
 import { colors } from '../globals/colors'
 
-const ProductDetail = ({product}) => {
+const ProductDetail = ({route}) => {
+
+  const {product} = route.params
+
+
   return (
     <View style={styles.container}>
-      <Header title={product.brand}/>
       <Image source={{uri:product.thumbnail}} style={styles.image} resizeMode='contain'/>
       <Text style={styles.title}>{product.title}</Text>
       <Text style={styles.description}>{product.description}</Text>
@@ -25,7 +28,8 @@ const styles = StyleSheet.create({
   },
   image:{
     width:"100%",
-    height:200
+    height:200,
+    backgroundColor:"red"
   },
   title:{
     fontSize:16,

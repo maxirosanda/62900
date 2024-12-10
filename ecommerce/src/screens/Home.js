@@ -2,17 +2,15 @@ import {StyleSheet, View } from 'react-native'
 import Header from '../components/Header'
 import Categories from '../components/Categories'
 
-const home = () => {
+const Home = () => {
 
- 
   return (
     <View>
-      <Header title="Home"/>
       <Categories/>
     </View>
   )
 }
 
-export default home
+export default Home
 
 const styles = StyleSheet.create({})

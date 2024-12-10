@@ -6,20 +6,12 @@ import Search from '../components/Search'
 import CardProduct from '../components/CardProduct'
 
 
-const ProductsByCategory = ({category}) => {
+const ProductsByCategory = ({route}) => {
 
+  const {category} = route.params
   const [productsFiltered,setProductsFiltered] = useState([])
   const [keyword,setKeyword] = useState("")
-  const [portrait,setPortrait] = useState(false)
-  const {width,height} = useWindowDimensions()
 
-  useEffect(()=>{
-    if(width > height){
-      setPortrait(false)
-    } else{
-      setPortrait(true)
-    }
-  },[width,height])
 
   useEffect(()=>{
     if(keyword){
@@ -34,7 +26,6 @@ const ProductsByCategory = ({category}) => {
 
   return (
     <View>
-      <Header title={category}/>
       <Search  onChangeKeyword ={(t)=> setKeyword(t)}/>
       <FlatList
         data={productsFiltered}
