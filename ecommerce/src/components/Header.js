@@ -1,13 +1,16 @@
 import {StyleSheet, Text, View } from 'react-native'
 import { colors } from '../globals/colors'
 import ArrowGoBack from './ArrowGoBack'
+import { useNavigation } from '@react-navigation/native'
 
 
-const Header = ({title,routeName}) => {
+const Header = ({title}) => {
+
+  const navigate = useNavigation()
 
   return (
     <View style={styles.container}>
-     {routeName != "Home" ? <ArrowGoBack/>  : null } 
+     {navigate.canGoBack() ? <ArrowGoBack/>  : null } 
       <Text style={styles.title}>{title}</Text>
     </View>
   )

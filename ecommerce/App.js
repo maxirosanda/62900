@@ -1,4 +1,4 @@
-import {StatusBar } from 'react-native'
+import { StatusBar } from 'react-native'
 import { colors } from './src/globals/colors'
 import { useFonts } from 'expo-font'
 import { fonts } from './src/globals/fonts'

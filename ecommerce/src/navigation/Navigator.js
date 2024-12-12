@@ -1,35 +1,57 @@
+import { StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Home from '../screens/Home'
-import ProductsByCategory from '../screens/ProductsByCategory'
-import ProductDetail from '../screens/ProductDetail'
-import Header from '../components/Header'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import ShopStack from './ShopStack'
+import CartStack from './CartStack'
+import OrdersStack from './OrdersStack'
+import { colors } from '../globals/colors';
+import TabBarIcon from '../components/TabBarIcon';
+
+const Tab = createBottomTabNavigator();
 
 const Navigator = () => {
 
-    const Stack = createNativeStackNavigator()
 
   return (
     <NavigationContainer>
-        <Stack.Navigator
-        screenOptions={({route})=> ({
-            header: () => {
-            return <Header title={
-                route.name === "Home" ? "Categorias":
-                route.name === "ProductsByCategory" ? route.params.category :
-                route.params.product.brand
-            }
-            routeName = {route.name}
+       <Tab.Navigator
+        screenOptions={{
+            headerShown:false,
+            tabBarShowLabel:false,
+            tabBarStyle : styles.tabBar,
+            tabBarLabelPosition:"beside-icon"
+        }}
+       >
+            <Tab.Screen 
+                name='ShopStack' 
+                component={ShopStack}
+                options={{
+                    tabBarIcon:({focused}) => <TabBarIcon text="Tienda" icon="shop" focused={focused}/>
+                }}
             />
-            }
-        })}
-        >
-            <Stack.Screen name='Home' component={Home}/>
-            <Stack.Screen name='ProductsByCategory' component={ProductsByCategory}/>
-            <Stack.Screen name='ProductDetail' component={ProductDetail}/>
-        </Stack.Navigator>
+            <Tab.Screen 
+                name='CartStack' 
+                component={CartStack}
+                options={{ 
+                    tabBarIcon:({focused}) => <TabBarIcon text="Carrito" icon="shopping-cart" focused={focused}/>
+                }}
+            />
+            <Tab.Screen 
+                name='OrdersStack' 
+                component={OrdersStack}
+                options={{ 
+                    tabBarIcon:({focused}) => <TabBarIcon text="Ordenes" icon="list" focused={focused}/>
+                }}
+            />
+       </Tab.Navigator>
     </NavigationContainer>
   )
 }
 
+const styles = StyleSheet.create({
+    tabBar:{
+        backgroundColor:colors.primary,
+        height:70
+    }
+})
 export default Navigator
