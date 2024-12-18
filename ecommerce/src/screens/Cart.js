@@ -2,6 +2,7 @@ import { StyleSheet, Text, View,FlatList, Pressable } from 'react-native'
 import cart from '../data/cart.json'
 import CardCartProduct from '../components/CardCartProduct'
 import { colors } from '../globals/colors'
+import Counter from '../components/Counter'
 
 const Cart = () => {
   return (

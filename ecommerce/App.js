@@ -3,6 +3,8 @@ import { colors } from './src/globals/colors'
 import { useFonts } from 'expo-font'
 import { fonts } from './src/globals/fonts'
 import Navigator from './src/navigation/Navigator'
+import { Provider } from 'react-redux'
+import store from './src/store'
 
 
 export default function App() {
@@ -16,7 +18,10 @@ export default function App() {
   
   return (
     <>
-      <Navigator/>
+      <Provider store={store}>
+        <Navigator/>
+      </Provider>
+    
       <StatusBar style="light" backgroundColor={colors.accent}/>
     </>
   )
