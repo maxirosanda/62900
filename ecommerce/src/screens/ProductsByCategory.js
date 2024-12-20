@@ -1,23 +1,35 @@
-import { FlatList, StyleSheet, View} from 'react-native'
-import products from '../data/products.json'
+import { FlatList, StyleSheet, View,Text} from 'react-native'
 import { useEffect, useState } from 'react'
 import Search from '../components/Search'
 import CardProduct from '../components/CardProduct'
-import { useSelector } from 'react-redux'
+import { useGetProductsQuery } from '../services/shop'
 
 
-const ProductsByCategory = () => {
 
-  const productsFilteredByCategory = useSelector(state => state.shop.productsFilteredByCategory)
+const ProductsByCategory = ({route}) => {
+
+
+  const {category} = route.params
+  const {data,isSuccess,isError,error,isLoading} = useGetProductsQuery(category)
   const [keyword,setKeyword] = useState("")
-  const [products,setProducts] = useState(productsFilteredByCategory)
+  const [products,setProducts] = useState([])
 
+  useEffect(()=>{
+    if(isSuccess){
+      setProducts(Object.values(data))
+    }
+  },[isSuccess,data])
 
   useEffect(()=>{
  
-    setProducts(productsFilteredByCategory.filter(product => product.title.includes(keyword)))
+   if(isSuccess){
+    setProducts(Object.values(data).filter(product => product.title.includes(keyword)))
+   }
 
-  },[keyword])
+  },[keyword,isSuccess])
+
+  if(isLoading) return <View><Text>cargando</Text></View>
+  if(isError) return <View><Text>{error.message}</Text></View>
 
 
 

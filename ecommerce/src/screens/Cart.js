@@ -3,8 +3,16 @@ import cart from '../data/cart.json'
 import CardCartProduct from '../components/CardCartProduct'
 import { colors } from '../globals/colors'
 import Counter from '../components/Counter'
+import { usePostOrdersMutation } from '../services/orders'
 
 const Cart = () => {
+
+  const [triggerPost] = usePostOrdersMutation()
+
+  const confirmCart = () => {
+    triggerPost({id:"2",products:[{id:"2"}],total:120})
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -14,7 +22,7 @@ const Cart = () => {
       />
       <View style={styles.containerTotal}>
         <Text style={styles.text}>Total: {cart.total}$ ARG </Text>
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={confirmCart}>
             <Text style={styles.buttonText}>Finalizar Compra</Text>
         </Pressable>
       </View>

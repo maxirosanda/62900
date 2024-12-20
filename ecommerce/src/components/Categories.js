@@ -1,11 +1,14 @@
-import { StyleSheet,FlatList} from 'react-native'
+import { StyleSheet,FlatList,View,Text} from 'react-native'
 import CardItemCategory from './CardItemCategory'
-import { useSelector } from 'react-redux'
+import { useGetCategoriesQuery} from '../services/shop'
 
 
 const Categories = () => {
 
-  const categories = useSelector(state => state.shop.categories)
+  const {data:categories,isError,error,isSuccess,isLoading} = useGetCategoriesQuery()
+
+  if(isLoading) return <View><Text>cargando</Text></View>
+  if(isError) return <View><Text>{error.message}</Text></View>
   
   return (
     <FlatList
