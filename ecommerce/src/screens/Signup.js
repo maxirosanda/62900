@@ -33,6 +33,7 @@ const Signup = () => {
         const user = {
             email:response.data.email,
             idToken:response.data.idToken,
+            localId:response.data.localId
         }
         dispatch(setUser(user))
     } catch (error) {
