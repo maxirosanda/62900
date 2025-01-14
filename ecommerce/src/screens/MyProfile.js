@@ -22,7 +22,10 @@ const MyProfile = () => {
         style={styles.image}
       />
       <SubmitButton title="Agregar imagen de perfil" onPress={()=>navigation.navigate("ImageSelector")}/>
-      <SubmitButton title="Agregar localizacion" onPress={()=>{}}/>
+      <SubmitButton title="Agregar localizacion" onPress={()=>{navigation.navigate("LocationSelector")}}/>
+      <View>
+        <Text>{user.address}</Text>
+      </View>
     </View>
   )
 }
