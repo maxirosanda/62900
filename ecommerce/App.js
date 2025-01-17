@@ -5,19 +5,20 @@ import { fonts } from './src/globals/fonts'
 import Navigator from './src/navigation/Navigator'
 import { Provider } from 'react-redux'
 import {store} from './src/store'
-import Login from './src/screens/Login'
-import Signup from './src/screens/Signup'
+import { init } from './src/config/dbSqlite'
+import { useEffect } from 'react'
 
 
 export default function App() {
 
-  
+  init()
+
   const [fontsLoaded] = useFonts(fonts)
 
   if(!fontsLoaded){
     return null
   }
-  
+
   return (
     <>
       <Provider store={store}>

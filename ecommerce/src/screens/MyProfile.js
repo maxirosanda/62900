@@ -24,7 +24,7 @@ const MyProfile = () => {
       <SubmitButton title="Agregar imagen de perfil" onPress={()=>navigation.navigate("ImageSelector")}/>
       <SubmitButton title="Agregar localizacion" onPress={()=>{navigation.navigate("LocationSelector")}}/>
       <View>
-        <Text>{user.address}</Text>
+        <Text>{user?.address}</Text>
       </View>
     </View>
   )
